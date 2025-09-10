@@ -7,7 +7,7 @@ export const range = (start, end, step = 1) => {
   }
 
   for (let i = 0; i < end; i += step) {
-    output.push();
+    output.push(i);
   }
 
   return output;
