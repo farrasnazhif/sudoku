@@ -1,0 +1,51 @@
+.grid-container {
+  background: #fff;
+  padding: 16px;
+  border-radius: 8px;
+}
+
+.grid-table {
+  border-collapse: collapse;
+}
+
+.grid-table tr:nth-child(3),
+.grid-table tr:nth-child(6),
+.grid-table tr:nth-child(9) {
+  border-bottom: 3px solid #000;
+}
+
+.grid-table tr:nth-child(1) {
+  border-top: 3px solid #000;
+}
+
+.col-cell {
+  border: 1px solid #999;
+  padding: 0;
+}
+
+.col-cell:nth-child(3),
+.col-cell:nth-child(6),
+.col-cell:nth-child(9) {
+  border-right: 3px solid #000;
+}
+
+.col-cell:nth-child(1) {
+  border-left: 3px solid #000;
+}
+
+input {
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  font-size: 23px;
+  border: none;
+  outline: none;
+  background: inherit;
+  color: #000;
+  cursor: default;
+}
+
+input:focus {
+  background: #44ccf2;
+  caret-color: transparent;
+}
