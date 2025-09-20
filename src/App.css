@@ -67,3 +67,8 @@ input:focus {
   left: 50%;
   transform: translateX(-50%);
 }
+
+.green {
+  background-color: #b5e9a7;
+  transition: background-color 0.3s ease;
+}

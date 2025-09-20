@@ -1,6 +1,13 @@
 import classNames from "classnames";
 
-const Grid = ({ board, puzzle, selected, setSelected, handleInput }) => {
+const Grid = ({
+  board,
+  puzzle,
+  selected,
+  setSelected,
+  handleInput,
+  greenCells,
+}) => {
   return (
     <div className="grid-container">
       <table className="grid-table">
@@ -10,9 +17,7 @@ const Grid = ({ board, puzzle, selected, setSelected, handleInput }) => {
             <tr key={rIdx}>
               {row.map((cell, cIdx) => {
                 const isPrefilled = puzzle[rIdx][cIdx] !== null;
-                const isSelected =
-                  selected && rIdx === selected[0] && cIdx === selected[1];
-
+                const cellIndex = rIdx * 9 + cIdx;
                 return (
                   <td
                     key={cIdx}
@@ -23,7 +28,7 @@ const Grid = ({ board, puzzle, selected, setSelected, handleInput }) => {
                         selected &&
                         Math.floor(rIdx / 3) === Math.floor(selected[0] / 3) &&
                         Math.floor(cIdx / 3) === Math.floor(selected[1] / 3),
-                      selected: isSelected,
+                      green: cellIndex < greenCells,
                     })}
                   >
                     <input
