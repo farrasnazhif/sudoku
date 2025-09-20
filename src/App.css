@@ -18,18 +18,18 @@
   border-top: 3px solid #000;
 }
 
-.col-cell {
+.cell {
   border: 1px solid #999;
   padding: 0;
 }
 
-.col-cell:nth-child(3),
-.col-cell:nth-child(6),
-.col-cell:nth-child(9) {
+.cell:nth-child(3),
+.cell:nth-child(6),
+.cell:nth-child(9) {
   border-right: 3px solid #000;
 }
 
-.col-cell:nth-child(1) {
+.cell:nth-child(1) {
   border-left: 3px solid #000;
 }
 
@@ -46,6 +46,12 @@ input {
 }
 
 input:focus {
-  background: #44ccf2;
+  background: #31bce2;
   caret-color: transparent;
+}
+
+.same-row,
+.same-col,
+.same-box {
+  background-color: #b9e6f2;
 }
