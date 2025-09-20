@@ -2,18 +2,42 @@ import React from "react";
 import "./App.css";
 import Grid from "./components/Grid";
 import { range } from "./utils";
+import Controls from "./components/Controls";
 
-// set all board will null value
-const emptyBoard = () => range(9).map(() => range(9).map(() => null));
+// set all board/puzzle will null value
+const emptyValue = () => range(9).map(() => range(9).map(() => null));
 
 function App() {
   // puzzle for the api
-  const [puzzle, setPuzzle] = React.useState(emptyBoard);
+  const [puzzle, setPuzzle] = React.useState(emptyValue);
   // board value from user input
-  const [board, setBoard] = React.useState(emptyBoard);
+  const [board, setBoard] = React.useState(emptyValue);
+  // solution
+  const [solution, setSolution] = React.useState(emptyValue);
+  // status
+  const [status, setStatus] = React.useState("");
 
   // [row, col]
-  const [selected, setSelected] = React.useState(null);
+  const [selected, setSelected] = React.useState([]);
+
+  const handleCheck = () => {
+    const flatBoard = board.flat();
+    const flatSolution = solution.flat();
+
+    if (flatBoard.every((cell, index) => cell === flatSolution[index])) {
+      setStatus("Correct!");
+    } else {
+      setStatus("Incorrect, try again");
+    }
+  };
+
+  const handleReset = () => {
+    setBoard(emptyValue);
+    setStatus("");
+    setSelected([]);
+  };
+
+  const handleNewPuzzle = () => {};
 
   // handle user input
   const handleInput = (rIdx, cIdx, value) => {
@@ -42,6 +66,12 @@ function App() {
         puzzle={puzzle}
         handleInput={handleInput}
       />
+      <Controls
+        handleCheck={handleCheck}
+        handleReset={handleReset}
+        handleNewPuzzle={handleNewPuzzle}
+      />
+      {status && <div className="status">{status}</div>}
     </div>
   );
 }
