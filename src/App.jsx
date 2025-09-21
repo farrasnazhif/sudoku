@@ -3,6 +3,7 @@ import "./App.css";
 import Grid from "./components/Grid";
 import { range } from "./utils";
 import Controls from "./components/Controls";
+import { fetchPuzzle } from "./fetch-puzzle";
 
 // set all board/puzzle with null value
 const emptyValue = () => range(9).map(() => range(9).map(() => null));
@@ -10,18 +11,30 @@ const emptyValue = () => range(9).map(() => range(9).map(() => null));
 function App() {
   // puzzle from sudoku api
   const [puzzle, setPuzzle] = React.useState(emptyValue);
+  // console.log(puzzle);
   // board value from user input
   const [board, setBoard] = React.useState(emptyValue);
   // solution
   const [solution, setSolution] = React.useState(emptyValue);
   // status
   const [status, setStatus] = React.useState("");
-
   // [row, col]
   const [selected, setSelected] = React.useState([]);
-
   // green cells correct status
   const [greenCells, setGreenCells] = React.useState(0);
+  // fetch error
+  const [error, setError] = React.useState("");
+
+  React.useEffect(() => {
+    fetchPuzzle({
+      setError,
+      setStatus,
+      setPuzzle,
+      setSolution,
+      setBoard,
+      setSelected,
+    });
+  }, []);
 
   const handleCheck = () => {
     const flatBoard = board.flat();
@@ -43,12 +56,22 @@ function App() {
   };
 
   const handleReset = () => {
-    setBoard(emptyValue);
+    setBoard(puzzle);
     setStatus("");
     setSelected([]);
   };
 
-  const handleNewPuzzle = () => {};
+  const handleNewPuzzle = () => {
+    setGreenCells(0);
+    fetchPuzzle({
+      setError,
+      setStatus,
+      setPuzzle,
+      setSolution,
+      setBoard,
+      setSelected,
+    });
+  };
 
   // handle user input
   const handleInput = (rIdx, cIdx, value) => {
