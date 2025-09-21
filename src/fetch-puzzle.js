@@ -14,10 +14,9 @@ export const fetchPuzzle = async ({
 
   try {
     const res = await fetch(SUDOKU_API);
-    console.log(res.status);
     const data = await res.json();
 
-    console.log(data);
+    // console.log(data);
 
     const grid = data.newboard.grids[0];
     const puzzle = grid.value.map((row) =>

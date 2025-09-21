@@ -8,21 +8,42 @@ const Grid = ({
   handleInput,
   greenCells,
 }) => {
-  console.log(selected);
   const selectedValue =
     selected.length === 2 ? board[selected[0]][selected[1]] : null;
 
-  console.log(selectedValue);
+  const isConflict = (rIdx, cIdx, value) => {
+    if (!value) return false;
+    // initial puzzles aren't affected
+    if (puzzle[rIdx][cIdx] !== null) return false;
+
+    // check all row values
+    const rowConflict = board[rIdx].some(
+      // idx !== cIdx, didn't check the column
+      // cell === value, check if cell = value in the current row
+      (cell, idx) => idx !== cIdx && cell === value
+    );
+
+    // only check the column based on the row
+    const colConflict = board.some(
+      // idx !== rIdx, didn't check the row
+      // row[cIdx] === value, check if theres duplicate value in the current col
+      (row, idx) => idx !== rIdx && row[cIdx] === value
+    );
+
+    return rowConflict || colConflict;
+  };
+
   return (
     <div className="grid-container">
       <table className="grid-table">
         <tbody>
-          {/* map board by row and each cell in the row */}
           {board.map((row, rIdx) => (
             <tr key={rIdx}>
               {row.map((cell, cIdx) => {
                 const isPrefilled = puzzle[rIdx][cIdx] !== null;
                 const cellIndex = rIdx * 9 + cIdx;
+                const conflict = isConflict(rIdx, cIdx, cell);
+
                 return (
                   <td
                     key={cIdx}
@@ -43,6 +64,7 @@ const Grid = ({
                       maxLength={1}
                       value={cell ?? ""}
                       readOnly={isPrefilled}
+                      className={classNames({ invalid: conflict })}
                       onFocus={() => setSelected([rIdx, cIdx])}
                       onClick={() => setSelected([rIdx, cIdx])}
                       onChange={(event) => {
