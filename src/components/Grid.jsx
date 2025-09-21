@@ -7,6 +7,7 @@ const Grid = ({
   setSelected,
   handleInput,
   greenCells,
+  solution,
 }) => {
   const selectedValue =
     selected.length === 2 ? board[selected[0]][selected[1]] : null;
@@ -18,19 +19,22 @@ const Grid = ({
 
     // check all row values
     const rowConflict = board[rIdx].some(
-      // idx !== cIdx, didn't check the column
+      // idx !== cIdx, doesn't check the column
       // cell === value, check if cell = value in the current row
       (cell, idx) => idx !== cIdx && cell === value
     );
 
     // only check the column based on the row
     const colConflict = board.some(
-      // idx !== rIdx, didn't check the row
+      // idx !== rIdx, doesn't check the row
       // row[cIdx] === value, check if theres duplicate value in the current col
       (row, idx) => idx !== rIdx && row[cIdx] === value
     );
 
-    return rowConflict || colConflict;
+    // if the value doesn't match with the solution
+    const wrongValue = value !== solution[rIdx][cIdx];
+
+    return rowConflict || colConflict || wrongValue;
   };
 
   return (

@@ -36,11 +36,14 @@ function App() {
     });
   }, []);
 
-  const handleCheck = () => {
+  React.useEffect(() => {
     const flatBoard = board.flat();
     const flatSolution = solution.flat();
 
-    if (flatBoard.every((cell, index) => cell === flatSolution[index])) {
+    if (
+      flatBoard.every((cell, index) => cell === flatSolution[index]) &&
+      solution.flat().some((v) => v !== null)
+    ) {
       setStatus("Correct!");
 
       let count = 0;
@@ -48,12 +51,14 @@ function App() {
       const interval = setInterval(() => {
         count++;
         setGreenCells(count);
-        if (count === totalCells) clearInterval(interval);
+        if (count === totalCells) {
+          return () => clearInterval(interval);
+        }
       }, 30);
     } else {
       setStatus("Incorrect, try again");
     }
-  };
+  }, [board, solution]);
 
   const handleReset = () => {
     setBoard(puzzle);
@@ -108,12 +113,9 @@ function App() {
         puzzle={puzzle}
         handleInput={handleInput}
         greenCells={greenCells}
+        solution={solution}
       />
-      <Controls
-        handleCheck={handleCheck}
-        handleReset={handleReset}
-        handleNewPuzzle={handleNewPuzzle}
-      />
+      <Controls handleReset={handleReset} handleNewPuzzle={handleNewPuzzle} />
       {status && <div className="status">{status}</div>}
     </div>
   );
