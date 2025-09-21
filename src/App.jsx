@@ -90,6 +90,14 @@ function App() {
     }
   };
 
+  if (error) {
+    return <div style={{ color: "red" }}>{error}</div>;
+  }
+
+  if (!board) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div style={{ textAlign: "center" }}>
       <h1>SUDOKU</h1>
