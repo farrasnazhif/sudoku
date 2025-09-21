@@ -55,8 +55,6 @@ function App() {
           return () => clearInterval(interval);
         }
       }, 30);
-    } else {
-      setStatus("Incorrect, try again");
     }
   }, [board, solution]);
 

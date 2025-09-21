@@ -16,7 +16,7 @@ export const fetchPuzzle = async ({
     const res = await fetch(SUDOKU_API);
     const data = await res.json();
 
-    console.log(data);
+    // console.log(data);
 
     const grid = data.newboard.grids[0];
     const puzzle = grid.value.map((row) =>
