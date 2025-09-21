@@ -56,6 +56,10 @@ input:focus {
   background-color: #b9e6f2;
 }
 
+.same-value {
+  background: #31bce2;
+}
+
 .status {
   position: absolute;
   top: 10px;

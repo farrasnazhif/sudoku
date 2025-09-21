@@ -8,6 +8,11 @@ const Grid = ({
   handleInput,
   greenCells,
 }) => {
+  console.log(selected);
+  const selectedValue =
+    selected.length === 2 ? board[selected[0]][selected[1]] : null;
+
+  console.log(selectedValue);
   return (
     <div className="grid-container">
       <table className="grid-table">
@@ -28,6 +33,8 @@ const Grid = ({
                         selected &&
                         Math.floor(rIdx / 3) === Math.floor(selected[0] / 3) &&
                         Math.floor(cIdx / 3) === Math.floor(selected[1] / 3),
+                      "same-value":
+                        selectedValue !== null && cell === selectedValue,
                       green: cellIndex < greenCells,
                     })}
                   >
