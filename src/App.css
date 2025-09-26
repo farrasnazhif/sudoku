@@ -1,7 +1,3 @@
-.wrapper {
-  scale: 0.7;
-}
-
 .grid-container {
   background: #fff;
   padding: 16px;
@@ -73,4 +69,10 @@ input:focus {
 input.invalid {
   color: rgb(255, 255, 255);
   background-color: #ff5858;
+}
+
+@media (max-width: 600px) {
+  .wrapper {
+    transform: scale(0.5);
+  }
 }
