@@ -39,52 +39,49 @@ const Grid = ({
 
   return (
     <div className="grid-container">
-      <div class="grid-wrapper">
-        <table className="grid-table">
-          <tbody>
-            {board.map((row, rIdx) => (
-              <tr key={rIdx}>
-                {row.map((cell, cIdx) => {
-                  const isPrefilled = puzzle[rIdx][cIdx] !== null;
-                  const cellIndex = rIdx * 9 + cIdx;
-                  const conflict = isConflict(rIdx, cIdx, cell);
+      <table className="grid-table">
+        <tbody>
+          {board.map((row, rIdx) => (
+            <tr key={rIdx}>
+              {row.map((cell, cIdx) => {
+                const isPrefilled = puzzle[rIdx][cIdx] !== null;
+                const cellIndex = rIdx * 9 + cIdx;
+                const conflict = isConflict(rIdx, cIdx, cell);
 
-                  return (
-                    <td
-                      key={cIdx}
-                      className={classNames("cell", {
-                        "same-row": selected && rIdx === selected[0],
-                        "same-col": selected && cIdx === selected[1],
-                        "same-box":
-                          selected &&
-                          Math.floor(rIdx / 3) ===
-                            Math.floor(selected[0] / 3) &&
-                          Math.floor(cIdx / 3) === Math.floor(selected[1] / 3),
-                        "same-value":
-                          selectedValue !== null && cell === selectedValue,
-                        green: cellIndex < greenCells,
-                      })}
-                    >
-                      <input
-                        type="text"
-                        maxLength={1}
-                        value={cell ?? ""}
-                        readOnly={isPrefilled}
-                        className={classNames({ invalid: conflict })}
-                        onFocus={() => setSelected([rIdx, cIdx])}
-                        onClick={() => setSelected([rIdx, cIdx])}
-                        onChange={(event) => {
-                          handleInput(rIdx, cIdx, event.target.value);
-                        }}
-                      />
-                    </td>
-                  );
-                })}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+                return (
+                  <td
+                    key={cIdx}
+                    className={classNames("cell", {
+                      "same-row": selected && rIdx === selected[0],
+                      "same-col": selected && cIdx === selected[1],
+                      "same-box":
+                        selected &&
+                        Math.floor(rIdx / 3) === Math.floor(selected[0] / 3) &&
+                        Math.floor(cIdx / 3) === Math.floor(selected[1] / 3),
+                      "same-value":
+                        selectedValue !== null && cell === selectedValue,
+                      green: cellIndex < greenCells,
+                    })}
+                  >
+                    <input
+                      type="text"
+                      maxLength={1}
+                      value={cell ?? ""}
+                      readOnly={isPrefilled}
+                      className={classNames({ invalid: conflict })}
+                      onFocus={() => setSelected([rIdx, cIdx])}
+                      onClick={() => setSelected([rIdx, cIdx])}
+                      onChange={(event) => {
+                        handleInput(rIdx, cIdx, event.target.value);
+                      }}
+                    />
+                  </td>
+                );
+              })}
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };

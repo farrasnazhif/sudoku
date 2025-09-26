@@ -102,7 +102,7 @@ function App() {
   }
 
   return (
-    <div style={{ textAlign: "center" }}>
+    <div style={{ textAlign: "center" }} className="wrapper">
       <h1>SUDOKU</h1>
       <Grid
         selected={selected}
